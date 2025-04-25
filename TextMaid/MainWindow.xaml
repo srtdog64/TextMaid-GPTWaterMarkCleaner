@@ -72,8 +72,8 @@
             <Image Source="/Image/maid.png" Width="84" Height="84" Canvas.Left="92" Canvas.Top="-8" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <!-- 이모지 SpriteSheet에서 일부만 표시 (코드 비하인드에서 설정) -->
             <Image x:Name="emojiOverlay"
-                   Width="40" Height="40"
-                   Canvas.Left="114" Canvas.Top="14"
+                   Width="44" Height="44"
+                   Canvas.Left="112" Canvas.Top="7"
                    Stretch="Uniform" />
         </Canvas>
 

@@ -23,7 +23,7 @@ namespace TextMaid
     public class MaidFace
     {
         // --- 설정 값 --- 
-        private const int OffsetX = 30; 
+        private const int OffsetX = 24; 
         private const int OffsetY = 30; 
         private const int SpriteWidth = 150; 
         private const int SpriteHeight = 86; 
