@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:TextMaid.Language"
-        Title="{x:Static lang:Resource.WindowTitle}" Height="680" Width="800"
+        Title="TextMaid" Height="680" Width="800"
         WindowStartupLocation="CenterScreen">
 
     <!-- 다크 배경 -->
@@ -66,63 +66,74 @@
         </Style>
     </Window.Resources>
 
-    <Border Margin="20" CornerRadius="16" BorderBrush="#333" BorderThickness="1" Background="Transparent">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="20" ShadowDepth="4" Color="#000000" Opacity="0.4"/>
-        </Border.Effect>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <!-- 이미지와 이모지를 겹쳐 표현하는 캔버스 (제목과 독립 레이어) -->
+        <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,20,0,0" Panel.ZIndex="1">
+            <Image Source="/Image/maid.png" Width="84" Height="84" Canvas.Left="92" Canvas.Top="-8" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <!-- 이모지 SpriteSheet에서 일부만 표시 (코드 비하인드에서 설정) -->
+            <Image x:Name="emojiOverlay"
+                   Width="40" Height="40"
+                   Canvas.Left="114" Canvas.Top="14"
+                   Stretch="Uniform" />
+        </Canvas>
 
-            <!-- Title Container -->
-            <Border Grid.Row="0" Background="#1F1F1F" CornerRadius="10" Padding="12" Margin="0,0" BorderBrush="#444" BorderThickness="1" HorizontalAlignment="Center">
-                <TextBlock Text="{x:Static lang:Resource.WindowTitle}"
-                           FontSize="24" FontWeight="Bold" Foreground="White"
-                           HorizontalAlignment="Center" />
-            </Border>
-
-            <!-- Input Area -->
-            <Grid Grid.Row="1" Margin="0,10" HorizontalAlignment="Stretch">
+        <!-- 메인 UI 영역 -->
+        <Border Margin="20" CornerRadius="16" BorderBrush="#333" BorderThickness="1" Background="Transparent">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="4" Color="#000000" Opacity="0.4"/>
+            </Border.Effect>
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="{x:Static lang:Resource.LabelTextInput}" FontWeight="Bold" FontSize="18" Foreground="White" Margin="5,0,0,5"/>
-                <Border Grid.Row="1" CornerRadius="12" BorderThickness="0" Background="#FFFDF5E6" Padding="0" ClipToBounds="True">
-                    <TextBox Name="inputTextBox" VerticalContentAlignment="Top"
-                             Background="Transparent" BorderThickness="0"
-                             Foreground="Black" FontFamily="Consolas" FontSize="14"
-                             TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
-                             Padding="10"/>
-                </Border>
-            </Grid>
-
-            <!-- Result Box -->
-            <Grid Grid.Row="2" Margin="0,5" HorizontalAlignment="Stretch">
-                <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{x:Static lang:Resource.LabelResult}" FontWeight="Bold" FontSize="18" Foreground="White" Margin="5,0,0,5"/>
-                <Border Grid.Row="1" CornerRadius="10" BorderBrush="#444" BorderThickness="1" Background="#1E1E1E" Padding="0">
-                    <TextBox Name="resultTextBox" IsReadOnly="True" BorderThickness="0" Height="60"
-                             VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
-                             Background="Transparent" Foreground="White"
-                             FontFamily="Consolas" FontSize="16" Padding="10"/>
-                </Border>
-            </Grid>
 
-            <!-- Buttons -->
-            <UniformGrid Grid.Row="3" Rows="1" Columns="4" HorizontalAlignment="Stretch" Margin="0,5">
-                <Button Content="{x:Static lang:Resource.CheckButton}" Click="OnCheckClicked"/>
-                <Button Content="{x:Static lang:Resource.CleanButton}" Click="OnCleanClicked"/>
-                <Button Content="{x:Static lang:Resource.EmojiCleanButton}" Click="OnEmojiCleanClicked"/>
-                <Button Content="{x:Static lang:Resource.SaveButton}" Click="OnSaveClicked"/>
-            </UniformGrid>
-        </Grid>
-    </Border>
+                <!-- 제목만 중앙에 위치 -->
+                <TextBlock Grid.Row="0" Text="{x:Static lang:Resource.WindowTitle}"
+                           FontSize="24" FontWeight="Bold" Foreground="White"
+                           HorizontalAlignment="Center" Margin="0,16,0,0"/>
+
+                <!-- Input Area -->
+                <Grid Grid.Row="1" Margin="0,10" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{x:Static lang:Resource.LabelTextInput}" FontWeight="Bold" FontSize="18" Foreground="White" Margin="5,0,0,5"/>
+                    <Border Grid.Row="1" CornerRadius="12" BorderThickness="0" Background="#FFFDF5E6" Padding="0" ClipToBounds="True">
+                        <TextBox Name="inputTextBox" VerticalContentAlignment="Top"
+                                 Background="Transparent" BorderThickness="0"
+                                 Foreground="Black" FontFamily="Consolas" FontSize="14"
+                                 TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                                 Padding="10"/>
+                    </Border>
+                </Grid>
+
+                <!-- Result Box -->
+                <Grid Grid.Row="2" Margin="0,5" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{x:Static lang:Resource.LabelResult}" FontWeight="Bold" FontSize="18" Foreground="White" Margin="5,0,0,5"/>
+                    <Border Grid.Row="1" CornerRadius="10" BorderBrush="#444" BorderThickness="1" Background="#1E1E1E" Padding="0">
+                        <TextBox Name="resultTextBox" IsReadOnly="True" BorderThickness="0" Height="60"
+                                 VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                                 Background="Transparent" Foreground="White"
+                                 FontFamily="Consolas" FontSize="16" Padding="10"/>
+                    </Border>
+                </Grid>
+
+                <!-- Buttons -->
+                <UniformGrid Grid.Row="3" Rows="1" Columns="4" HorizontalAlignment="Stretch" Margin="0,5">
+                    <Button Content="{x:Static lang:Resource.CheckButton}" Click="OnCheckClicked"/>
+                    <Button Content="{x:Static lang:Resource.CleanButton}" Click="OnCleanClicked"/>
+                    <Button Content="{x:Static lang:Resource.EmojiCleanButton}" Click="OnEmojiCleanClicked"/>
+                    <Button Content="{x:Static lang:Resource.SaveButton}" Click="OnSaveClicked"/>
+                </UniformGrid>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

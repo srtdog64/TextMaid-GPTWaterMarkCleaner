@@ -6,14 +6,27 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Image\maidIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Image\maid.png" />
+    <None Remove="Image\maidIcon.ico" />
+    <None Remove="Image\maid_face.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Image\maid.png" />
+    <Content Include="Image\maidIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Image\maid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\maidIcon.ico" />
+    <Resource Include="Image\maid_face.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
